@@ -30,7 +30,15 @@ async function run(){
         const cursor = reviewCollection.find(query);
         const products = await cursor.toArray()
         res.send(products)
-      })
+      }) 
+      // single item api 
+
+      app.get('/product/:id', async(req,res)=>{
+        const id=req.params.id
+        const query={_id:ObjectId(id)} 
+        const product= await serviceCollection.findOne(query)
+        res.send(product)
+    }) 
       
   }finally{
     
