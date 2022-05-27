@@ -33,6 +33,17 @@ async function run(){
       }) 
       // single item api 
 
+         // post  api
+    app.post('/reviews',async(req,res)=>{
+      const newReview=req.body 
+      console.log(newReview);
+      const result=await reviewCollection .insertOne(newReview) 
+      res.send(result) 
+      console.log(result); 
+      
+
+  }) 
+
       app.get('/product/:id', async(req,res)=>{
         const id=req.params.id
         const query={_id:ObjectId(id)} 
