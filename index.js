@@ -19,6 +19,7 @@ async function run(){
       await client.connect();
       const serviceCollection = client.db('menufactureBD').collection('product')
       const reviewCollection = client.db('reviewDb').collection('review')
+      const orderCollection = client.db('orderDb').collection('order')
       app.get('/product', async (req, res) => {
         const query = {}
         const cursor = serviceCollection.find(query);
@@ -31,6 +32,12 @@ async function run(){
         const products = await cursor.toArray()
         res.send(products)
       }) 
+      app.get('/orders', async (req, res) => {
+        const query = {}
+        const cursor = orderCollection.find(query);
+        const orders = await cursor.toArray()
+        res.send(orders)
+      }) 
       // single item api 
 
          // post  api
@@ -38,6 +45,15 @@ async function run(){
       const newReview=req.body 
       console.log(newReview);
       const result=await reviewCollection .insertOne(newReview) 
+      res.send(result) 
+      console.log(result); 
+      
+
+  }) 
+    app.post('/orders',async(req,res)=>{
+      const newOrder=req.body 
+      console.log(newOrder);
+      const result=await orderCollection .insertOne(newOrder) 
       res.send(result) 
       console.log(result); 
       
