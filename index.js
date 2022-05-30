@@ -27,7 +27,19 @@ async function run(){
         const cursor = serviceCollection.find(query);
         const products = await cursor.toArray()
         res.send(products)
-      })
+      }) 
+
+
+      app.post('/product',async(req,res)=>{
+        const newProduct=req.body 
+        console.log(newProduct);
+        const result=await serviceCollection.insertOne(newProduct) 
+        res.send(result) 
+        console.log(result); 
+        
+
+    }) 
+
       app.get('/reviews', async (req, res) => {
         const query = {}
         const cursor = reviewCollection.find(query);
